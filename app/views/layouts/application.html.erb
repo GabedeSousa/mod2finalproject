@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>iBikeapp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </head>
+
+
+<div class="container">
+
+  <nav class="navbar navbar-dark bg-secondary">
+    <a class="navbar-brand" href=<%= home_path %>>iBike</a>
+
+      <% if flash[:notice] %>
+        <div class="notice"><%= flash[:notice] %></div>
+      <% elsif flash[:error] %>
+        <div class="error text-danger"><%= flash[:error] %></div>
+      <% end %>
+
+
+      <% if !logged_in? %>
+        <%= render '/sessions/form'%>
+
+      <ul class="navbar-nav navbar-right">
+        <li class="nav-item active">
+          <a class="nav-link" href=<%= new_user_path %>>Register</a>
+        </li>
+      </ul>
+
+      <% else %>
+      <a href="<%= newmountain_path %>"> Create a MTB listing<span class="caret"></span></a> 
+      <a href="<%= newroad_path %>"> Create a Road Listing<span class="caret"></span></a> 
+      <a href="<%= user_path(current_user.id) %>" > View Profile<span class="caret"></span></a> 
+      <a href="<%= edit_user_path(current_user.id) %>" > Edit Profile<span class="caret"></span></a> 
+      <a href=<%= logout_path %> data-method="delete"%>Logout</a>
+
+      
+      <% end %>
+  </nav>
+</div>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
+

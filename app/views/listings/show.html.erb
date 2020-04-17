@@ -1,0 +1,71 @@
+<div class="container">
+
+<h1> <%= link_to "#{@listing.product.name} [#{@listing.product.model}]", product_path(@listing.product) %> </h1>
+
+<%# flash notice when updated form is sent %>
+<% if flash[:notice] %>
+    <div class="notice"><%= flash[:notice] %></div>
+<% end %>
+
+<h3> Seller: <%= @listing.user.full_name %> <%="(#{@listing.user.approval_rating})"%> </h3> 
+
+<%# ability for Seller to edit listing order %>
+<% if @listing.user_id == current_user.id %>
+        <% if @listing.product.type_id == 1 %>
+            <%= link_to "Edit my Road Bike listing", editroad_path(@listing) %>
+        <% else %> 
+            <%= link_to "Edit my Mountain Bike listing", editmountain_path(@listing) %>
+        <% end %>
+<% end %>
+    <br><br>
+
+
+
+<div class="row">
+    <div class="col-sm-4 my-auto">
+        <h4> Price: $<%= @listing.display_price %> </h4> 
+        <h4> Condition: <%= @listing.condition %> </h4>
+        <h4> Make: <%= @listing.make %> </h4>
+        <h4> Size: <%= @listing.size %> </h4>
+    </div>
+    <div class="col-sm-8 my-auto">
+        <%= image_tag(@listing.product.image) %>
+    </div>
+</div>
+
+
+<%= form_with scope: :exchange, url: exchanges_path do |f| %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :listing_id, value: @listing.id%>
+    <% if @listing.active == false %>
+        <h2>SOLD</h2>
+    <% elsif @listing.user.id != current_user.id %>
+        <% if current_user.balance < @listing.price %>
+            <h3>You don't have enough money to buy this Bike, maybe next time!</h3>
+            <h3><%= link_to "Click here to add more money", addmoney_path %></h3>
+        <% else %>
+            <%= f.submit "Buy Now" %>
+        <% end %>
+    <% end %>
+<% end %>
+
+
+<br><br>
+
+<%= render partial: 'comments/form' %>
+
+<br><br>
+
+<div class="row">
+    <div class="col my-auto">
+        <h2>Comments (<%= @listing.comments.size %>) </h2>
+
+        <% @listing.comments.each do |comment| %>
+            <h5> <%= comment.user.first_name %> <%= comment.display_timestamp %> </h5>
+            <%= comment.content %>
+                <br><br>
+        <% end %>
+    </div>
+</div>
+
+</div>

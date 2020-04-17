@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="jumbotron">
+    <h1>Welcome to iBike</h1>      
+    <p>Buy or sell Road and MTB bikes.</p>
+  </div>
+    
+    <div class="row">
+        
+        <% @products.each do |product| %>
+            <% if product.type_id == 1 %>
+                <div class="col-sm-2 m-auto">
+                        <div class="row justify-content-center align-self-center">
+                            <%= link_to image_tag(product.image), product_path(product) %>
+                        </div>
+                        <div class="row justify-content-center align-self-center">
+                            <p style="font-size:20px"> <%= product.name %> </p>
+                        </div>
+                </div>
+            <% end %>
+        <% end %>
+
+    </div>
+    <br><br>
+    <div class="row">
+            
+        <% @products.each do |product| %>
+            <% if product.type_id == 2 %>
+                <div class="col-sm-2 m-auto">
+                        <div class="row justify-content-center align-self-center">
+                            <%= link_to image_tag(product.image), product_path(product) %>
+                        </div>
+                        <div class="row justify-content-center align-self-center">
+                            <p style="font-size:20px"> <%= product.name %> </p>
+                        </div>
+                </div>
+            <% end %>
+        <% end %>
+
+    </div>
+
+</div>
+    
+</body>
+</html>

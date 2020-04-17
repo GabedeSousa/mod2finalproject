@@ -1,0 +1,24 @@
+<div class="container">
+<%= form_for @listing do |form| %>
+  <%= form.label "Product: " %>
+  <%= form.collection_select :product_id, Product.where(:type_id => 2), :id, :name  %>
+    <br><br>
+  <%= form.label "Condition: " %>
+  <%= form.select :condition, ['new', 'used']%>
+    <br><br>
+  <%= form.label "Make: " %>
+  <%= form.select :make, ['Cannondale', 'Trek', 'Scott', 'BMC']%>
+    <br><br>
+  <%= form.label "Size: " %>
+  <%= form.select :size, ['13cm', '14cm', '15cm', '16cm', '17cm', '18cm', '19cm','20cm','21cm','22cm','23cm']%>
+    <br><br>
+  <%= form.label "Price: "%>
+  <%= form.number_field :price, step: "0.01" %>
+    <br><br>
+  <%= form.label "Post a description:" %>
+  <%= form.text_area :description %>
+    <br><br>
+  <%= form.hidden_field :user_id, value: current_user.id %>
+  <%= form.submit "Submit" %>
+<% end %>
+</div>

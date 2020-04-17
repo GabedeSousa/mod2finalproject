@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row"> 
+        <div class="col-sm-6">
+                <h1>Item Sold: <%= @exchange.listing.product.name %></h1>
+                    <br>
+                <h3> Buyer: <%= @exchange.user.full_name %> 
+                    <br><br>
+                <h3> Seller: <%= @exchange.listing.user.full_name %>
+                    <br><br>
+                <h3> Transaction Price: $<%= @exchange.listing.display_price %> </h3> 
+                    <br><br>
+                <% if @exchange.listing.user_id == current_user.id %>
+                    Like the Buyer!
+                        <%= button_to "Like", exchange_path(@exchange)%>
+                <% else %>
+                    Like the Seller!
+                        <%= button_to "Like", exchange_path(@exchange)%>
+                <% end %>
+        </div>
+        <div class="col-sm-6 my-auto">
+            <br>
+            <img src="https://media.giphy.com/media/Q5c65JXPKMWOd4BGHm/giphy.gif" class="img-responsive center-block" width="425px">
+        </div>
+    </div>
+</div>
+

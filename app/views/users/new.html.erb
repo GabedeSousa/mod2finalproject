@@ -1,0 +1,19 @@
+<div class="container">
+<%= form_for :user, url: users_path do |f| %>
+  First Name: <%= f.text_field :first_name %><br>
+  Last Name: <%= f.text_field :last_name %><br>
+  Username: <%= f.text_field :username %><br>
+  Password: <%= f.password_field :password %><br>
+  Password Confirmation: <%= f.password_field :password_confirmation %><br>
+  <%= f.hidden_field :likes, value: 0 %>
+  <%= f.hidden_field :balance, value: 10.000 %>
+  <%= f.submit "Submit" %>
+<% end %>
+
+<% if flash[:alert] %>
+  <% flash[:alert].each do |alert| %>
+    <div class="alert text-danger"><%= alert %></div>
+  <% end %>
+<% end %>
+
+</div>
